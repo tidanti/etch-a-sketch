@@ -1,0 +1,48 @@
+/** {
+    border: 1px solid black;
+}*/
+
+html {
+    font-family: 'Roboto' sans-serif;
+}
+
+body {
+    background-color: #ddd;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#reset-btn {
+    width: 10%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 2px solid #ccc;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: border 0.4s ease-out;
+}
+
+#reset-btn:hover {
+    cursor: pointer;
+    border: 2px solid #24a777;
+}
+
+#main-container {
+    width: 100%;
+    border-radius: 5px;
+    
+    /*test*/
+    height: 500px;
+    border: 1px solid black;
+}
+
+.card {
+    
+}
+
+.card-hover {
+    background-color: #000;
+}
