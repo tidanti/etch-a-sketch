@@ -38,6 +38,7 @@ function checkForCancel(gridSize) {
 }
 
 function cancelProcess() {
+    clearContainer();
     showHtmlMessage('There is no grid now.');
 }
 
@@ -47,35 +48,42 @@ function setGrid(gridSize) {
         const newCard = document.createElement('div');
         newCard.classList.add('card');
         container.appendChild(newCard);
+        newCard.addEventListener('mouseover', hoverCard);
     }
 
     container.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
     container.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
 
-    setCardsEventListeners();
+    //setCardsEventListeners();
 }
 
 function setCardsEventListeners() {
     const cardsList = document.querySelectorAll('.card');
     cardsList.forEach(card => {
-        card.addEventListener('click', hoverCard);
+        card.addEventListener('mouseover', hoverCard);
     });
 }
 
-function clearContainer() {
+function clearContainer(remove = false) {
     const cardList = document.querySelectorAll('.card');
     cardList.forEach(card => {
-        container.removeChild(card);
+        if (remove) {
+            container.removeChild(card);
+        } else {
+            card.classList.remove('card-hover');
+        }
     });
 }
 
 function hoverCard(e) {
-
+    const currentCard = e.target;
+    currentCard.classList.toggle('card-hover');
 }
 
 function reset() {
     clearContainer();
     showHtmlMessage('There is no grid now.');
+    main();
 }
 
 function showHtmlMessage(msg) {
