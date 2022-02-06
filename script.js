@@ -2,6 +2,13 @@ const container = document.querySelector('#main-container');
 const resetBtn = document.querySelector('#reset-btn');
 const msgElem = document.querySelector('.message');
 
+resetBtn.addEventListener('click', reset);
+
+function setContainerHeight() {
+    const currentWidth = container.offsetWidth;
+    container.style.height = `${currentWidth}px`;
+}
+
 function getGridSettings() {
     let gridSize;
     do {
@@ -35,7 +42,15 @@ function cancelProcess() {
 }
 
 function setGrid(gridSize) {
+    cardsAmountInGrid = Math.pow(gridSize, 2);
+    for (let i = 0; i < cardsAmountInGrid; i++) {
+        const newCard = document.createElement('div');
+        newCard.classList.add('card');
+        container.appendChild(newCard);
+    }
 
+    container.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+    container.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
 }
 
 function hoverCard(e) {
@@ -55,9 +70,14 @@ function showAlertMessage(msg) {
 }
 
 function main() {
+    //setContainerHeight(); default is better
     const gridSize = getGridSettings();
-    if (checkForCancel(gridSize)) return;
-    
+    if (checkForCancel(gridSize)) {
+        cancelProcess();
+        return;
+    }
+    // set grid
+    setGrid(gridSize);
 }
 
 main();
