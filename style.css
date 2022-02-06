@@ -46,6 +46,7 @@ body {
 }
 
 #main-container {
+    flex: 1;
     width: 100%;
     border: 2px solid #ccc;
     display: grid;

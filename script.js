@@ -38,7 +38,7 @@ function checkForCancel(gridSize) {
 }
 
 function cancelProcess() {
-    msgElem.textContent = 'There is no grid now.';
+    showHtmlMessage('There is no grid now.');
 }
 
 function setGrid(gridSize) {
@@ -51,6 +51,22 @@ function setGrid(gridSize) {
 
     container.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
     container.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
+
+    setCardsEventListeners();
+}
+
+function setCardsEventListeners() {
+    const cardsList = document.querySelectorAll('.card');
+    cardsList.forEach(card => {
+        card.addEventListener('click', hoverCard);
+    });
+}
+
+function clearContainer() {
+    const cardList = document.querySelectorAll('.card');
+    cardList.forEach(card => {
+        container.removeChild(card);
+    });
 }
 
 function hoverCard(e) {
@@ -58,11 +74,12 @@ function hoverCard(e) {
 }
 
 function reset() {
-
+    clearContainer();
+    showHtmlMessage('There is no grid now.');
 }
 
 function showHtmlMessage(msg) {
-
+    msgElem.textContent = msg;
 }
 
 function showAlertMessage(msg) {
@@ -78,6 +95,7 @@ function main() {
     }
     // set grid
     setGrid(gridSize);
+    showHtmlMessage(`Grid size: ${gridSize}x${gridSize}.`);
 }
 
 main();
