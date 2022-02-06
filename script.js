@@ -1,19 +1,40 @@
 const container = document.querySelector('#main-container');
 const resetBtn = document.querySelector('#reset-btn');
+const msgElem = document.querySelector('.message');
 
 function getGridSettings() {
+    let gridSize;
+    do {
+        gridSize = +prompt('Enter the grid size:', 16);
+    } while (!checkGridSettings(gridSize));
 
+    return gridSize;
 }
 
-function checkGridSettings() {
-
+function checkGridSettings(gridSize) {
+    if (!gridSize && gridSize !== 0) {
+        showAlertMessage('Not a number. Repeat input.')
+        return false;
+    } else if (gridSize > 100) {
+        showAlertMessage('Enter grid size <= 100.');
+        return false;
+    } else if (gridSize < 0) {
+        showAlertMessage('Enter grid size > 0.');
+        return false;
+    } else {
+        return true;
+    }
 }
 
-function reset() {
-
+function checkForCancel(gridSize) {
+    return (gridSize === 0) ? true : false;
 }
 
-function setGrid(gridWidth) {
+function cancelProcess() {
+    msgElem.textContent = 'There is no grid now.';
+}
+
+function setGrid(gridSize) {
 
 }
 
@@ -21,8 +42,22 @@ function hoverCard(e) {
 
 }
 
-function main() {
+function reset() {
 
 }
 
-//main();
+function showHtmlMessage(msg) {
+
+}
+
+function showAlertMessage(msg) {
+    alert(msg);
+}
+
+function main() {
+    const gridSize = getGridSettings();
+    if (checkForCancel(gridSize)) return;
+    
+}
+
+main();
