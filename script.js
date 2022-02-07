@@ -55,7 +55,7 @@ function setGrid(gridSize) {
         container.appendChild(newCard);
 
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-            newCard.addEventListener('mousedown', hoverCard); // mobile
+            newCard.addEventListener('pointerover', hoverCard); // mobile
         } else {
             newCard.addEventListener('mouseover', hoverCard); // pc
         }
