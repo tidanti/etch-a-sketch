@@ -64,19 +64,6 @@ function setGrid(gridSize) {
 
     container.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
     container.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
-
-    //setCardsEventListeners();
-}
-
-function setCardsEventListeners() {
-    const cardsList = document.querySelectorAll('.card');
-    cardsList.forEach(card => {
-        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-            card.addEventListener('click', hoverCard); // mobile, need another event
-        } else {
-            card.addEventListener('mouseover', hoverCard); // pc
-        }
-    });
 }
 
 function clearContainer(remove = false) {
@@ -118,7 +105,7 @@ function main() {
         cancelProcess();
         return;
     }
-    // set grid
+
     setGrid(gridSize);
     showHtmlMessage(`Grid size: ${gridSize}x${gridSize}.`);
 }
