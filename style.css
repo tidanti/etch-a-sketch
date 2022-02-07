@@ -62,10 +62,11 @@ body {
 }
 
 .card {
-    background-color: #fff;
-    transition: background-color 0.2s linear;
+    /*background-color: #fff;*/
+    transition: opacity 0.2s linear;
 }
 
 .card-hover {
-    background-color: #000;
+    /*background-color: #000;*/
+    opacity: 0.1;
 }

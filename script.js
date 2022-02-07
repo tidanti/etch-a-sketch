@@ -45,7 +45,6 @@ function checkForCancel(gridSize) {
 
 function cancelProcess() {
     clearContainer();
-    //showHtmlMessage('There is no grid now.');
 }
 
 function setGrid(gridSize) {
@@ -72,6 +71,7 @@ function clearContainer(remove = false) {
         if (remove) {
             container.removeChild(card);
         } else {
+            card.style.backgroundColor = '#ddd';
             card.classList.remove('card-hover');
         }
     });
@@ -79,7 +79,32 @@ function clearContainer(remove = false) {
 
 function hoverCard(e) {
     const currentCard = e.target;
-    currentCard.classList.toggle('card-hover');
+    if (currentCard.classList.contains('card-hover')) {
+        increaseOpacityProperty(currentCard, 0.1);
+    } else {
+        currentCard.classList.add('card-hover');
+        const newColor = getRandomColor();
+        currentCard.style.backgroundColor = newColor;
+    }
+}
+
+function increaseOpacityProperty(elem, valueToIncrease) {
+    let currentOpacity = +elem.style.opacity;
+    currentOpacity += valueToIncrease;
+    elem.style.opacity = currentOpacity;
+}
+
+function getRandomColor() {
+    const redValue = getRandomNumberFrom0To255();
+    const greenValue = getRandomNumberFrom0To255();
+    const blueValue = getRandomNumberFrom0To255();
+    const newColor = `rgb(${redValue}, ${greenValue}, ${blueValue})`;
+
+    return newColor;
+}
+
+function getRandomNumberFrom0To255() {
+    return Math.floor(Math.random() * (255 - 0 + 1)) + 0;
 }
 
 function reset(remove = false) {
