@@ -28,7 +28,7 @@ function checkGridSettings(gridSize) {
     if (!gridSize && gridSize !== 0) {
         showAlertMessage('Not a number. Repeat input.')
         return false;
-    } else if (gridSize > 100) {
+    } else if (gridSize > 1000) {
         showAlertMessage('Enter grid size <= 100.');
         return false;
     } else if (gridSize < 0) {
