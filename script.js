@@ -1,8 +1,14 @@
 const container = document.querySelector('#main-container');
 const resetBtn = document.querySelector('#reset-btn');
+const removeBtn = document.querySelector('#remove-btn');
 const msgElem = document.querySelector('.message');
 
-resetBtn.addEventListener('click', reset);
+resetBtn.addEventListener('click', () => {
+    reset();
+});
+removeBtn.addEventListener('click', () => {
+    reset(true);
+});
 
 function setContainerHeight() {
     const currentWidth = container.offsetWidth;
@@ -39,7 +45,7 @@ function checkForCancel(gridSize) {
 
 function cancelProcess() {
     clearContainer();
-    showHtmlMessage('There is no grid now.');
+    //showHtmlMessage('There is no grid now.');
 }
 
 function setGrid(gridSize) {
@@ -48,7 +54,12 @@ function setGrid(gridSize) {
         const newCard = document.createElement('div');
         newCard.classList.add('card');
         container.appendChild(newCard);
-        newCard.addEventListener('mouseover', hoverCard);
+
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            newCard.addEventListener('click', hoverCard); // mobile, need another event
+        } else {
+            newCard.addEventListener('mouseover', hoverCard); // pc
+        }
     }
 
     container.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
@@ -60,7 +71,11 @@ function setGrid(gridSize) {
 function setCardsEventListeners() {
     const cardsList = document.querySelectorAll('.card');
     cardsList.forEach(card => {
-        card.addEventListener('mouseover', hoverCard);
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            card.addEventListener('click', hoverCard); // mobile, need another event
+        } else {
+            card.addEventListener('mouseover', hoverCard); // pc
+        }
     });
 }
 
@@ -80,10 +95,12 @@ function hoverCard(e) {
     currentCard.classList.toggle('card-hover');
 }
 
-function reset() {
-    clearContainer();
+function reset(remove = false) {
+    clearContainer(remove);
     showHtmlMessage('There is no grid now.');
-    main();
+    if (!remove) {
+        main();
+    }
 }
 
 function showHtmlMessage(msg) {
