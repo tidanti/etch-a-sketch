@@ -28,7 +28,7 @@ function checkGridSettings(gridSize) {
     if (!gridSize && gridSize !== 0) {
         showAlertMessage('Not a number. Repeat input.')
         return false;
-    } else if (gridSize > 1000) {
+    } else if (gridSize > 100) {
         showAlertMessage('Enter grid size <= 100.');
         return false;
     } else if (gridSize < 0) {
@@ -55,7 +55,7 @@ function setGrid(gridSize) {
         container.appendChild(newCard);
 
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-            newCard.addEventListener('click', hoverCard); // mobile, need another event
+            newCard.addEventListener('mousedown', hoverCard); // mobile
         } else {
             newCard.addEventListener('mouseover', hoverCard); // pc
         }
@@ -71,7 +71,8 @@ function clearContainer(remove = false) {
         if (remove) {
             container.removeChild(card);
         } else {
-            card.style.backgroundColor = '#ddd';
+            card.style.backgroundColor = 'white';
+            card.style.opacity = '0.1';
             card.classList.remove('card-hover');
         }
     });

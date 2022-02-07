@@ -1,7 +1,3 @@
-/** {
-    border: 1px solid black;
-}*/
-
 html {
     font-family: 'Roboto' sans-serif;
     box-sizing: border-box;
@@ -55,18 +51,10 @@ body {
     width: 100%;
     border: 2px solid #ccc;
     display: grid;
-
-    /*test*/
-    height: 500px;
-    /*border: 1px solid black;*/
 }
 
 .card {
-    /*background-color: #fff;*/
-    transition: opacity 0.2s linear;
-}
-
-.card-hover {
-    /*background-color: #000;*/
+    background-color: white;
     opacity: 0.1;
+    transition: opacity 0.2s linear;
 }
