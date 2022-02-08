@@ -3,6 +3,8 @@ const resetBtn = document.querySelector('#reset-btn');
 const removeBtn = document.querySelector('#remove-btn');
 const msgElem = document.querySelector('.message');
 
+let lastModifiedCard;  // for mobile devices
+
 resetBtn.addEventListener('click', () => {
     reset();
 });
@@ -54,15 +56,27 @@ function setGrid(gridSize) {
         newCard.classList.add('card');
         container.appendChild(newCard);
 
-        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-            newCard.addEventListener('pointerover', hoverCard); // mobile
-        } else {
-            newCard.addEventListener('mouseover', hoverCard); // pc
+        if (!checkIsClientMobile()) {
+            newCard.addEventListener('mouseover', hoverCard);
         }
     }
 
     container.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
     container.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
+
+    if (checkIsClientMobile()) {
+        container.addEventListener('touchmove', (e) => {
+            hoverCard(e, true);
+        });
+    }
+}
+
+function checkIsClientMobile() {
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function clearContainer(remove = false) {
@@ -78,8 +92,26 @@ function clearContainer(remove = false) {
     });
 }
 
-function hoverCard(e) {
-    const currentCard = e.target;
+function hoverCard(e, forMobile = false) {
+    if (forMobile) {
+        const currX = e.touches[0].clientX;
+        const currY = e.touches[0].clientY;
+        const currentCard = document.elementFromPoint(currX, currY);
+        
+        if (!currentCard.classList.contains('card') || currentCard === lastModifiedCard) {
+            return;
+        } else {
+            changeCardPropertiesByHover(currentCard);
+            lastModifiedCard = currentCard;
+        }
+
+    } else {
+        const currentCard = e.target;
+        changeCardPropertiesByHover(currentCard);
+    }
+}
+
+function changeCardPropertiesByHover(currentCard) {
     if (currentCard.classList.contains('card-hover')) {
         increaseOpacityProperty(currentCard, 0.1);
     } else {
